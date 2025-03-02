@@ -1,233 +1,129 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Danz URL Upload</title>
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <style>
-    /* Background Animasi Warna-warni */
-    body {
-      background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee, #84fab0, #8fd3f4);
-      background-size: 400% 400%;
-      animation: gradientBG 10s ease infinite;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    /* Container */
-    .container {
-      max-width: 700px;
-      width: 90%;
-      background: rgba(255, 255, 255, 0.9);
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      text-align: center;
-    }
-
-    /* Input */
-    .input-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .input-field {
-      width: 80%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      background: #f4f4f4;
-      text-align: center;
-    }
-
-    .btn {
-      width: 50%;
-      padding: 10px;
-      background: #007bff;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .btn:hover {
-      background: #0056b3;
-    }
-
-    /* Pencarian */
-    .search-container {
-      display: flex;
-      justify-content: center;
-      gap: 5px;
-      margin-top: 10px;
-    }
-
-    .search-bar {
-      width: 75%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      background: #f4f4f4;
-      text-align: center;
-    }
-
-    .search-btn {
-      padding: 10px;
-      background: #28a745;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .search-btn:hover {
-      background: #218838;
-    }
-
-    /* Daftar File */
-    .file-list {
-      margin-top: 20px;
-      text-align: left;
-    }
-
-    .file-item {
-      background: white;
-      padding: 10px;
-      margin: 5px 0;
-      border-radius: 5px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .file-item a {
-      text-decoration: none;
-      color: #007ff;
-      font-weight: bold;
-    }
-
-    .download-link {
-      padding: 5px 10px;
-      background: #286fe8;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      font-size: 14px;
-    }
-
-    .download-link:hover {
-      background: #218838;
-    }
-
-    /* Tombol Download */
-    .download-btn {
-      width: 80%;
-      padding: 10px;
-      background: #289;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-
-    .download-btn:hover {
-      background: #218838;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File ke GoFile.io</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid #007bff;
+        }
+        h2 {
+            color: #007bff;
+        }
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e9ecef;
+            border-radius: 5px;
+        }
+        .warning {
+            background: #ffeeba;
+            color: #856404;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="container">
-    <h2>Danz URL Upload</h2>
-    
-    <!-- Form Input -->
-    <div class="input-container">
-      <input type="text" id="fileName" class="input-field" placeholder="Masukkan Nama File">
-      <input type="text" id="fileUrl" class="input-field" placeholder="Masukkan URL File">
-      <button class="btn" onclick="addFile()">Tambahkan</button>
+    <div class="container">
+        <h2>Upload File ke GoFile.io</h2>
+        <p>Pilih file yang ingin Anda unggah, lalu klik tombol **"Upload"** untuk mendapatkan link unduhan.</p>
+
+        <div class="warning">
+            ⚠️ <strong>PERHATIAN!</strong>  
+            - File yang diunggah akan **bersifat publik** dan dapat diakses siapa saja.  
+            - Jangan unggah file yang mengandung **data pribadi atau ilegal**.  
+            - Setelah file terunggah, Anda akan mendapatkan **link unduhan**.
+        </div>
+
+        <input type="file" id="fileInput">
+        <button class="btn" onclick="uploadFile()">Upload</button>
+
+        <div class="result hidden" id="resultBox">
+            <h3>Hasil Upload</h3>
+            <p id="resultText"></p>
+        </div>
+
+        <h3>Cara Kerja:</h3>
+        <p>1️⃣ Pilih file dari perangkat Anda.<br>
+           2️⃣ Klik tombol "Upload".<br>
+           3️⃣ Tunggu proses unggah selesai.<br>
+           4️⃣ Salin link yang diberikan untuk membagikan file.</p>
     </div>
 
-    <!-- Pencarian -->
-    <h3>Cari File</h3>
-    <div class="search-container">
-      <input type="text" id="searchBox" class="search-bar" placeholder="Cari berdasarkan nama...">
-      <button class="search-btn" onclick="searchFile()">🔍</button>
-    </div>
+    <script>
+        async function uploadFile() {
+            const fileInput = document.getElementById("fileInput").files[0];
+            if (!fileInput) {
+                alert("Pilih file terlebih dahulu!");
+                return;
+            }
 
-    <!-- Daftar File -->
-    <h3>Rekomendasi File</h3>
-    <div class="file-list" id="fileList"></div>
+            let formData = new FormData();
+            formData.append("file", fileInput);
 
-    <!-- Cara Pemakaian -->
-    <h3>Cara Pemakaian</h3>
-    <p>1. Masukkan nama file dan URL tempat file tersimpan.</p>
-    <p>2. Klik tombol "Tambahkan" untuk menyimpan URL.</p>
-    <p>3. Cari file berdasarkan nama menggunakan kolom pencarian atau klik tombol 🔍.</p>
-    <p>4. Klik nama file untuk membuka URL atau tombol "Download".</p>
+            try {
+                const response = await fetch("https://store1.gofile.io/uploadFile", {
+                    method: "POST",
+                    body: formData
+                });
 
-    <!-- Tombol Download Paling Bawah -->
-    <button class="download-btn" onclick="window.location.href='https://subs4unlock.id/ZF1Tto'">Download Source Code</button>
-  </div>
+                const result = await response.json();
 
-  <script>
-    let fileStorage = JSON.parse(localStorage.getItem("files")) || [];
-
-    function addFile() {
-      let name = document.getElementById("fileName").value.trim();
-      let url = document.getElementById("fileUrl").value.trim();
-      
-      if (!name || !url) {
-        alert("Nama dan URL harus diisi!");
-        return;
-      }
-
-      fileStorage.push({ name, url });
-      localStorage.setItem("files", JSON.stringify(fileStorage));
-      document.getElementById("fileName").value = "";
-      document.getElementById("fileUrl").value = "";
-      displayFiles();
-    }
-
-    function displayFiles(filteredList = null) {
-      let list = filteredList || fileStorage.slice(0, 15); // Batasi max 15 rekomendasi
-      let fileList = document.getElementById("fileList");
-      fileList.innerHTML = list.length ? "" : "<p>Tidak ada rekomendasi file</p>";
-
-      list.forEach((file) => {
-        let div = document.createElement("div");
-        div.classList.add("file-item");
-        div.innerHTML = `
-          <a href="${file.url}" target="_blank">${file.name}</a>
-          <a href="${file.url}" download class="download-link">Download</a>
-        `;
-        fileList.appendChild(div);
-      });
-    }
-
-    function searchFile() {
-      let keyword = document.getElementById("searchBox").value.toLowerCase();
-      let filteredList = fileStorage.filter(file => file.name.toLowerCase().includes(keyword));
-      displayFiles(filteredList);
-    }
-
-    // Tampilkan file yang sudah tersimpan saat pertama kali buka halaman
-    displayFiles();
-  </script>
+                if (result.status === "ok") {
+                    const fileURL = result.data.downloadPage;
+                    document.getElementById("resultText").innerHTML = 
+                        `✅ Upload berhasil!<br>
+                         <a href="${fileURL}" target="_blank">${fileURL}</a>`;
+                    document.getElementById("resultBox").classList.remove("hidden");
+                } else {
+                    alert("Gagal mengunggah file. Coba lagi.");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Terjadi kesalahan saat mengunggah file.");
+            }
+        }
+    </script>
 
 </body>
 </html>
