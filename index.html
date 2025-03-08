@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload File ke free</title>
+    <title>Upload File ke Free</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -23,6 +23,11 @@
         }
         h2 {
             color: #007bff;
+        }
+        .time-box {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
         input[type="file"] {
             width: 100%;
@@ -60,12 +65,29 @@
         .hidden {
             display: none;
         }
+        .closed {
+            background: #ffcccc;
+            color: #cc0000;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+        }
     </style>
 </head>
-<body>
+<body onload="checkOperatingHours(); startClock();">
 
-    <div class="container">
+    <div id="closedMessage" class="closed hidden">
+        🚧 Maaf, website ini hanya beroperasi dari **08:00 - 22:00**. Silakan kembali nanti!
+    </div>
+
+    <div id="content" class="container">
         <h2>Upload File ke GoFile.io</h2>
+
+        <div class="time-box">
+            ⏰ <span id="currentTime"></span>
+        </div>
+
         <p>Pilih file yang ingin Anda unggah, lalu klik tombol **"Upload"** untuk mendapatkan link unduhan.</p>
 
         <div class="warning">
@@ -91,6 +113,33 @@
     </div>
 
     <script>
+        function checkOperatingHours() {
+            let now = new Date();
+            let hour = now.getHours();
+            let openHour = 8;  
+            let closeHour = 22; 
+
+            if (hour < openHour || hour >= closeHour) {
+                document.getElementById("closedMessage").classList.remove("hidden");
+                document.getElementById("content").classList.add("hidden");
+            } else {
+                document.getElementById("closedMessage").classList.add("hidden");
+                document.getElementById("content").classList.remove("hidden");
+            }
+        }
+
+        function startClock() {
+            function updateClock() {
+                let now = new Date();
+                let hours = now.getHours().toString().padStart(2, "0");
+                let minutes = now.getMinutes().toString().padStart(2, "0");
+                let seconds = now.getSeconds().toString().padStart(2, "0");
+                document.getElementById("currentTime").textContent = `${hours}:${minutes}:${seconds}`;
+            }
+            updateClock();
+            setInterval(updateClock, 1000);
+        }
+
         async function uploadFile() {
             const fileInput = document.getElementById("fileInput").files[0];
             if (!fileInput) {
